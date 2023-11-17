@@ -6,7 +6,7 @@ authors = ["Henrique C. C. de Andrade <henrique.ccda@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 fastapi = "^0.104.1"
 uvicorn = "^0.24.0.post1"
 gunicorn = "^21.2.0"
@@ -79,3 +79,5 @@ linter = {cmd="task lin_mypy && task lin_ruff", help="Linter"}
 test = {cmd="pytest", help="Rodando os testes"}
 
 server = {cmd="uvicorn api.app:app --reload", help="Subindo o servidor."}
+
+server_prod = {cmd="gunicorn api.app:app --workers 3 --worker-class uvicorn.workers.UvicornWorker --bind localhost:8000 --log-file=-  --access-logfile=-", help="Subindo gunicorn+uvicorn."}
