@@ -1,10 +1,10 @@
 # TriangInfos
 
-O projeto extremamente simples que calcula a área de Triangulo.
+Um projeto extremamente simples que calcula a área de Triangulo.
 
-O frontend foi criado usando `vue`, `pinia` e `vuetify`. Com ferramentas de desenvolvimento foi `eslint`, `prettier` e `vite`.
+O frontend foi criado usando `vue`, `pinia` e `vuetify`. Como ferramentas de desenvolvimento temos foi `eslint`, `prettier` e `vite`.
 
-Backend foi criado utilizando o `FastAPI`. O servidor de aplicação é `gunicorn + uvicorn`. Com ferramentas de desenvolvimento temos foi `black`, `ruff`, `taskipy` e `pytest`.
+Backend foi criado utilizando o `FastAPI`. O servidor de aplicação é `gunicorn + uvicorn`. Como ferramentas de desenvolvimento temos `black`, `ruff`, `taskipy` e `pytest`.
 
 ## Frontend
 
