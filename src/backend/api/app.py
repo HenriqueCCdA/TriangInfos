@@ -7,10 +7,7 @@ from api.services import Triang
 app = FastAPI()
 
 
-origins = [
-    "http://localhost:5173",
-    "http://localhost:3000"
-]
+origins = ["http://localhost:5173", "http://localhost:3000"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,6 +16,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/")
 def index():
