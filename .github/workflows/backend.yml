@@ -1,0 +1,72 @@
+name: "backend-ci"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/backend
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        python-version: ['3.12']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+        poetry install --no-root
+
+    - name: Look for auto format errors (black)
+      run:  poetry run black --check --diff api/ tests/
+
+    - name: Look for auto format errors (ruff)
+      run:  poetry run ruff check api/ tests/
+
+    - name: Run mypy
+      run:  poetry run mypy --package tests --package api
+
+  tests:
+    needs: lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/backend
+    strategy:
+      fail-fast: true
+      max-parallel: 2
+      matrix:
+        python-version: ['3.12']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+        poetry install --no-root
+
+    - name: test
+      run: poetry run pytest tests --junitxml=test-result.xml
