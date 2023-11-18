@@ -9,15 +9,12 @@ import ErrorVue from './components/ErrorVue.vue'
     <h1 class="title">Lados do Triangulo</h1>
 
     <FormVue />
-    <ResultVue/>
-    <ErrorVue/>
-
+    <ResultVue />
+    <ErrorVue />
   </v-container>
 </template>
 
 <style scoped>
-
-
 .title {
   text-align: center;
 }

@@ -4,7 +4,7 @@ const store = useStore()
 </script>
 
 <template>
-    <div v-if="store.area" class="mt-5 expressao">Valor da area: {{ store.area }}</div>
+  <div v-if="store.area" class="mt-5 expressao">Valor da area: {{ store.area }}</div>
 </template>
 
 <style scoped>
@@ -15,5 +15,4 @@ const store = useStore()
   border-radius: 2px;
   background-color: rgb(115, 170, 152);
 }
-
 </style>
