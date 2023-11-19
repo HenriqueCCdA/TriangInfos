@@ -1,12 +1,14 @@
 # TriangInfos
 
-Um projeto extremamente simples que calcula a área de Triangulo.
+Projeto extremamente simples que calcula a área de Triangulo. Objetivo é apenas o integrar o `FastAPI`, `Vue` e `Docker`.
 
 O frontend foi criado usando `vue`, `pinia` e `vuetify`. Como ferramentas de desenvolvimento temos foi `eslint`, `prettier` e `vite`.
 
 Backend foi criado utilizando o `FastAPI`. O servidor de aplicação é `gunicorn + uvicorn`. Como ferramentas de desenvolvimento temos `black`, `ruff`, `taskipy` e `pytest`.
 
 ## Desenvolvimento local
+
+Comandos para o desenvolvimento local sem docker.
 
 ### Frontend
 
@@ -79,6 +81,8 @@ poetry run task -l
 ```
 
 ## Docker
+
+Comandos para o desenvolvimento local com docker.
 
 Gerando as imagens
 
