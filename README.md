@@ -6,7 +6,9 @@ O frontend foi criado usando `vue`, `pinia` e `vuetify`. Como ferramentas de des
 
 Backend foi criado utilizando o `FastAPI`. O servidor de aplicação é `gunicorn + uvicorn`. Como ferramentas de desenvolvimento temos `black`, `ruff`, `taskipy` e `pytest`.
 
-## Frontend
+## Desenvolvimento local
+
+### Frontend
 
 Entrando na pasta do front
 
@@ -38,7 +40,7 @@ Para chamara o linter `ESlint`
 npm run lint
 ```
 
-## Backend
+### Backend
 
 Entrando na pasta do backend
 
@@ -72,6 +74,32 @@ npm run lint
 
 Mais opções do `taskipy`
 
-```
+```bash
 poetry run task -l
+```
+
+## Docker
+
+Gerando as imagens
+
+```bash
+docker compose build
+```
+
+Subindo os containers
+
+```bash
+docker compose up
+```
+
+Rodando os testes no `backend`
+
+```bash
+docker compose run backend task test
+```
+
+Entrando no container do `backend`
+
+```bash
+docker compose run backend bash
 ```

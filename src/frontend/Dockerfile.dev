@@ -1,0 +1,11 @@
+FROM node:20-bullseye-slim
+
+WORKDIR /opt/app
+
+COPY . .
+
+RUN npm install \
+  && npm cache clean --force \
+  && npm cache verify
+
+EXPOSE 3000
