@@ -1,6 +1,15 @@
 import pytest
 
-from api.services import Triang3Edges, TriangBaseHeight
+from api.services import Triang3Edges, TriangBase, TriangBaseHeight
+
+
+def test_triang_abc():
+    msg = (
+        "Can't instantiate abstract class TriangBase without an implementation for abstract methods 'area', 'is_valid'"
+    )
+
+    with pytest.raises(TypeError, match=msg):
+        TriangBase()
 
 
 @pytest.mark.integration

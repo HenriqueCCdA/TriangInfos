@@ -1,7 +1,18 @@
+from abc import ABC, abstractmethod
 from math import sqrt
 
 
-class Triang3Edges:
+class TriangBase(ABC):
+    @abstractmethod
+    def area(self) -> float:
+        ...
+
+    @abstractmethod
+    def is_valid(self) -> bool:
+        ...
+
+
+class Triang3Edges(TriangBase):
     def __init__(self, a: float, b: float, c: float) -> None:
         """
         Parameters:
@@ -32,7 +43,7 @@ class Triang3Edges:
         return self.a < self.b + self.c and self.b < self.a + self.c and self.c < self.a + self.b
 
 
-class TriangBaseHeight:
+class TriangBaseHeight(TriangBase):
     def __init__(self, b: float, h: float) -> None:
         """
         Parameters:
