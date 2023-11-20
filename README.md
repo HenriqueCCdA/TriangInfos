@@ -6,6 +6,12 @@ O frontend foi criado usando `vue`, `pinia` e `vuetify`. Como ferramentas de des
 
 Backend foi criado utilizando o `FastAPI`. O servidor de aplicação é `gunicorn + uvicorn`. Como ferramentas de desenvolvimento temos `black`, `ruff`, `taskipy` e `pytest`.
 
+## Subindo o projeto com docker
+
+```bash
+docker compose up -d
+```
+
 ## Desenvolvimento local
 
 Comandos para o desenvolvimento local sem docker.
