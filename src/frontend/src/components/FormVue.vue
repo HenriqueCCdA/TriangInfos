@@ -23,7 +23,7 @@ async function calcular() {
   store.msg_error = null
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/area', options)
+    const response = await fetch('http://127.0.0.1:8000/area-abc', options)
 
     const body = await response.json()
 

@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.schemes import Area, Edges
-from api.services import Triang
+from api.schemes import Area, BaseHeight, Edges
+from api.services import Triang3Edges, TriangBaseHeight
 
 app = FastAPI()
 
@@ -23,9 +23,23 @@ def index():
     return {"msg": "Api is OK!"}
 
 
-@app.post("/area", response_model=Area)
-def calc(edges: Edges):
-    triang = Triang(**edges.model_dump())
+@app.post("/area-abc", response_model=Area)
+def calc_abc(edges: Edges):
+    """calculo da area do triangulo utilizando os lados `a`, `b` e `c`"""
+    triang = Triang3Edges(**edges.model_dump())
+
+    if not triang.is_valid():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Não existe triangulo com esse lados."
+        )
+
+    return {"area": triang.area()}
+
+
+@app.post("/area-bh", response_model=Area)
+def calc_bh(bh: BaseHeight):
+    """calculo da área do triangulo com a `base` e a `altura`."""
+    triang = TriangBaseHeight(**bh.model_dump())
 
     if not triang.is_valid():
         raise HTTPException(
