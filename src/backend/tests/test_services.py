@@ -1,6 +1,6 @@
 import pytest
 
-from api.services import Triang
+from api.services import Triang3Edges, TriangBaseHeight
 
 
 @pytest.mark.integration
@@ -15,8 +15,8 @@ from api.services import Triang
         "triag2",
     ],
 )
-def test_triang(a, b, c, area):
-    triang = Triang(a, b, c)
+def test_triang_3edges(a, b, c, area):
+    triang = Triang3Edges(a, b, c)
 
     assert triang.area() == pytest.approx(area)
 
@@ -30,7 +30,40 @@ def test_triang(a, b, c, area):
         (3, 4, 5, True),
     ],
 )
-def test_is_valid(a, b, c, valid):
-    triang = Triang(a, b, c)
+def test_is_valid_3edges(a, b, c, valid):
+    triang = Triang3Edges(a, b, c)
+
+    assert triang.is_valid() is valid
+
+
+@pytest.mark.integration
+@pytest.mark.parametrize(
+    "b,h,area",
+    [
+        (2, 2, 2.0),
+        (4, 5, 10.0),
+    ],
+    ids=[
+        "triag1",
+        "triag2",
+    ],
+)
+def test_triang_bh(b, h, area):
+    triang = TriangBaseHeight(b, h)
+
+    assert triang.area() == pytest.approx(area)
+
+
+@pytest.mark.integration
+@pytest.mark.parametrize(
+    "b,h,valid",
+    [
+        (4, -7, False),
+        (-5, 2, False),
+        (3, 4, True),
+    ],
+)
+def test_is_valid_bh(b, h, valid):
+    triang = TriangBaseHeight(b, h)
 
     assert triang.is_valid() is valid

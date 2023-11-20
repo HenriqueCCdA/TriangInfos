@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile.dev
       context: ./src/backend/
     image: triang_infos_api:latest
+    command: "uvicorn api.app:app --reload --host 0.0.0.0"
     volumes:
       - ./src/backend:/opt/app/
     restart: 'no'

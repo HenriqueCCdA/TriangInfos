@@ -7,5 +7,10 @@ class Edges(BaseModel):
     c: float
 
 
+class BaseHeight(BaseModel):
+    b: float
+    h: float
+
+
 class Area(BaseModel):
     area: float

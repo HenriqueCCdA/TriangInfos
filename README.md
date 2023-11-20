@@ -71,7 +71,7 @@ poetry run task fmt
 Para o linter com `mypy` e `ruff`
 
 ```bash
-npm run lint
+poetry run task lint
 ```
 
 Mais opções do `taskipy`
@@ -106,4 +106,16 @@ Entrando no container do `backend`
 
 ```bash
 docker compose run backend bash
+```
+
+Para formatar o codigo com `prettier`
+
+```bash
+docker compose run frontend npm run format
+```
+
+Para chamara o linter `ESlint`
+
+```bash
+docker compose run frontend npm run lint
 ```
