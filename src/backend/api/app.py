@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.schemes import Area, BaseHeight, Edges
+from api.schemes import Area, BaseHeight, Edges, Perimetro
 from api.services import Triang3Edges, TriangBaseHeight
 
 app = FastAPI()
@@ -25,7 +25,7 @@ def index():
 
 @app.post("/area-abc", response_model=Area)
 def calc_abc(edges: Edges):
-    """calculo da area do triangulo utilizando os lados `a`, `b` e `c`"""
+    """Cálculo da area do triangulo utilizando os lados `a`, `b` e `c`."""
     triang = Triang3Edges(**edges.model_dump())
 
     if not triang.is_valid():
@@ -38,7 +38,7 @@ def calc_abc(edges: Edges):
 
 @app.post("/area-bh", response_model=Area)
 def calc_bh(bh: BaseHeight):
-    """calculo da área do triangulo com a `base` e a `altura`."""
+    """Cálculo da área do triangulo com a `base` e a `altura`."""
     triang = TriangBaseHeight(**bh.model_dump())
 
     if not triang.is_valid():
@@ -47,3 +47,16 @@ def calc_bh(bh: BaseHeight):
         )
 
     return {"area": triang.area()}
+
+
+@app.post("/perimetro", response_model=Perimetro)
+def perimetro(edges: Edges):
+    """Cálculo da area do triangulo utilizando os lados `a`, `b` e `c`."""
+    triang = Triang3Edges(**edges.model_dump())
+
+    if not triang.is_valid():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Não existe triangulo com esse lados."
+        )
+
+    return {"perimetro": triang.perimetro()}

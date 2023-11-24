@@ -14,3 +14,7 @@ class BaseHeight(BaseModel):
 
 class Area(BaseModel):
     area: float
+
+
+class Perimetro(BaseModel):
+    perimetro: float

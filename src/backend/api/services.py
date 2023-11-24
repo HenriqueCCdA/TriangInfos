@@ -42,6 +42,14 @@ class Triang3Edges(TriangBase):
         """
         return self.a < self.b + self.c and self.b < self.a + self.c and self.c < self.a + self.b
 
+    def perimetro(self) -> float:
+        """Cálculo de perimetro
+
+        Returns:
+            float: Retorno o perimetro
+        """
+        return self.a + self.b + self.c
+
 
 class TriangBaseHeight(TriangBase):
     def __init__(self, b: float, h: float) -> None:
