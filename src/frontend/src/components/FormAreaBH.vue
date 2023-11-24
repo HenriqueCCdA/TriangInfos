@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useStore } from '@/stores/core'
+import config from '@/utils/api';
 
 let b = ref(null)
 let h = ref(null)
@@ -8,15 +9,7 @@ let h = ref(null)
 async function calcular() {
   const store = useStore()
 
-  const options = {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ b: b.value, h: h.value })
-  }
+  const options = config({ b: b.value, h: h.value })
 
   store.area = null
   store.msg_error = null
