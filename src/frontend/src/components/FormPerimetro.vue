@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useStore } from '@/stores/core'
-import config from '@/utils/api';
+import config from '@/utils/api'
 
 let a = ref(null)
 let b = ref(null)
@@ -12,11 +12,11 @@ async function calcular() {
 
   const options = config({ a: a.value, b: b.value, c: c.value })
 
-  store.area = null
+  store.perimetro = null
   store.msg_error = null
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/area-abc', options)
+    const response = await fetch('http://127.0.0.1:8000/perimetro', options)
 
     const body = await response.json()
 
@@ -24,7 +24,7 @@ async function calcular() {
       throw new Error(body.detail)
     }
 
-    store.area = parseFloat(body.area).toFixed(2)
+    store.perimetro = parseFloat(body.perimetro).toFixed(2)
   } catch (error) {
     store.msg_error = error
   }

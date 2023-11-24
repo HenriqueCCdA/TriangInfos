@@ -4,7 +4,8 @@ export const useStore = defineStore('store', {
   state: () => {
     return {
       area: null,
-      msg_error: null
+      perimetro: null,
+      msg_error: null,
     }
   }
 })
