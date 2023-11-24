@@ -2,9 +2,8 @@
 import { ref } from 'vue'
 import { useStore } from '@/stores/core'
 
-let a = ref(null)
 let b = ref(null)
-let c = ref(null)
+let h = ref(null)
 
 async function calcular() {
   const store = useStore()
@@ -16,14 +15,14 @@ async function calcular() {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ a: a.value, b: b.value, c: c.value })
+    body: JSON.stringify({ b: b.value, h: h.value })
   }
 
   store.area = null
   store.msg_error = null
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/area-abc', options)
+    const response = await fetch('http://127.0.0.1:8000/area-bh', options)
 
     const body = await response.json()
 
@@ -40,12 +39,9 @@ async function calcular() {
 
 <template>
   <v-form @submit.prevent="calcular">
-    <v-text-field type="number" v-model="a" placeholder="Lado a" required />
+    <v-text-field type="number" v-model="b" placeholder="Base" required />
 
-    <v-text-field type="number" v-model="b" placeholder="Lado b" required />
-    <v-text-field type="number" v-model="c" placeholder="Lado c" required />
+    <v-text-field type="number" v-model="h" placeholder="Altura" required />
     <v-btn variant="tonal" type="submit" block>Calcular</v-btn>
   </v-form>
 </template>
-
-<style scoped></style>
