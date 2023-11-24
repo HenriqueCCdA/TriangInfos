@@ -101,3 +101,25 @@ def test_negative_invalid_triangule_bh(params):
     body = response.json()
 
     assert body["detail"] == "Não existe triangulo com esse lados."
+
+
+@pytest.mark.integration
+@pytest.mark.parametrize(
+    "params, perimetro",
+    [
+        ({"a": 3, "b": 4, "c": 5}, 12),
+        ({"a": 7, "b": 9, "c": 14}, 30),
+    ],
+    ids=[
+        "triag1",
+        "triag2",
+    ],
+)
+def test_positive_perimetro(params, perimetro):
+    response = client.post("/perimetro", json=params)
+
+    assert response.status_code == status.HTTP_200_OK
+
+    body = response.json()
+
+    assert body["perimetro"] == pytest.approx(perimetro)
