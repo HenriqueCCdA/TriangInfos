@@ -27,11 +27,17 @@ def index():
 @app.post("/area-abc", response_model=Area)
 def calc_abc(edges: Edges):
     """Cálculo da area do triangulo utilizando os lados `a`, `b` e `c`."""
+
     triang = Triang3Edges(**edges.model_dump())
 
     if not triang.is_valid():
         raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Não existe triangulo com esse lados."
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail={
+                "msg": "Não existe triangulo com esse lados.",
+                "type": "invalid_triangle",
+                "input": edges.model_dump(),
+            },
         )
 
     return {"area": triang.area()}
@@ -41,11 +47,6 @@ def calc_abc(edges: Edges):
 def calc_bh(bh: BaseHeight):
     """Cálculo da área do triangulo com a `base` e a `altura`."""
     triang = TriangBaseHeight(**bh.model_dump())
-
-    if not triang.is_valid():
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Não existe triangulo com esse lados."
-        )
 
     return {"area": triang.area()}
 
@@ -57,7 +58,12 @@ def perimetro(edges: Edges):
 
     if not triang.is_valid():
         raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Não existe triangulo com esse lados."
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail={
+                "msg": "Não existe triangulo com esse lados.",
+                "type": "invalid_triangle",
+                "input": edges.model_dump(),
+            },
         )
 
     return {"perimetro": triang.perimetro()}

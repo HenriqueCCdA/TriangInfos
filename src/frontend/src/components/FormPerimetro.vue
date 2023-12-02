@@ -21,7 +21,10 @@ async function calcular() {
     const body = await response.json()
 
     if (!response.ok) {
-      throw new Error(body.detail)
+      if (Array.isArray(body.detail)) {
+        throw new Error(body.detail[0].msg)
+      }
+      throw new Error(body.detail.msg)
     }
 
     store.perimetro = parseFloat(body.perimetro).toFixed(2)

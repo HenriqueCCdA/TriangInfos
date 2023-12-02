@@ -24,7 +24,7 @@ const routes = [
     path: '/perimetro',
     name: 'perimetro',
     component: FormulaPerimetro
-  },
+  }
 ]
 
 const router = createRouter({

@@ -1,15 +1,15 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, PositiveFloat
 
 
 class Edges(BaseModel):
-    a: float
-    b: float
-    c: float
+    a: PositiveFloat
+    b: PositiveFloat
+    c: PositiveFloat
 
 
 class BaseHeight(BaseModel):
-    b: float
-    h: float
+    b: PositiveFloat
+    h: PositiveFloat
 
 
 class Area(BaseModel):

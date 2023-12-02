@@ -5,7 +5,7 @@ export const useStore = defineStore('store', {
     return {
       area: null,
       perimetro: null,
-      msg_error: null,
+      msg_error: null
     }
   }
 })
