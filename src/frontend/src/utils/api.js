@@ -1,5 +1,4 @@
 function config(payload) {
-
   const options = {
     method: 'POST',
     mode: 'cors',

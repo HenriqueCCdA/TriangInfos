@@ -49,14 +49,46 @@ def test_positive_calc(params, area):
         "triag2",
     ],
 )
-def test_negative_invalid_triangule(params):
+def test_negative_invalid_triangle(params):
     response = client.post("/area-abc", json=params)
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
 
     body = response.json()
 
-    assert body["detail"] == "Não existe triangulo com esse lados."
+    error = body["detail"]
+
+    assert error["msg"] == "Não existe triangulo com esse lados."
+    assert error["type"] == "invalid_triangle"
+    assert error["input"] == params
+
+
+@pytest.mark.integration
+@pytest.mark.parametrize(
+    "params",
+    [
+        {"a": -1, "b": 1, "c": 1},
+        {"a": 1, "b": -1, "c": 1},
+        {"a": 1, "b": 1, "c": -1},
+    ],
+    ids=[
+        "a<0",
+        "b<0",
+        "c<0",
+    ],
+)
+def test_negative_edges_must_be_gt_zero(params):
+    response = client.post("/area-abc", json=params)
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+
+    body = response.json()
+
+    error = body["detail"][0]
+
+    assert error["msg"] == "Input should be greater than 0"
+    assert error["type"] == "greater_than"
+    assert error["input"] == -1
 
 
 @pytest.mark.integration
@@ -93,14 +125,14 @@ def test_positive_area_bh(params, area):
         "triag2",
     ],
 )
-def test_negative_invalid_triangule_bh(params):
+def test_negative_invalid_triangle_bh(params):
     response = client.post("/area-bh", json=params)
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
 
     body = response.json()
 
-    assert body["detail"] == "Não existe triangulo com esse lados."
+    assert body["detail"][0]["msg"] == "Input should be greater than 0"
 
 
 @pytest.mark.integration
