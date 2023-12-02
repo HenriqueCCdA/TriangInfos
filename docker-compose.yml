@@ -15,6 +15,7 @@ services:
     #   - backend/.env
     environment:
       - PYTHONBREAKPOINT=ipdb.set_trace
+      - TRIANG_INFOS_API_CORS=http://localhost:3000
     ports:
       - 8000:8000
 
