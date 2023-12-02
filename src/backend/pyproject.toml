@@ -10,6 +10,7 @@ python = "^3.12"
 fastapi = "^0.104.1"
 uvicorn = "^0.24.0.post1"
 gunicorn = "^21.2.0"
+pydantic-settings = "^2.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -22,6 +23,7 @@ httpx = "^0.25.1"
 mypy = "^1.7.0"
 ipython = "^8.17.2"
 ipdb = "^0.13.13"
+coverage = "^7.3.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -69,14 +71,18 @@ pretty = true
 src_module = "api"
 
 [tool.taskipy.tasks]
-fmt_black = {cmd="poetry run black {src_module} tests", help="Chamando do black", use_vars = true}
-fmt_ruff= {cmd="poetry run ruff {src_module} tests --fix", help="Chamando do ruff", use_vars = true}
-fmt = {cmd="task fmt_ruff && task fmt_black", help="Formatador do código"}
+fmt_black = {cmd="poetry run black {src_module} tests", help="Chamando do black.", use_vars = true}
+fmt_ruff= {cmd="poetry run ruff {src_module} tests --fix", help="Chamando do ruff.", use_vars = true}
+fmt = {cmd="task fmt_ruff && task fmt_black", help="Formatador do código."}
 
 lin_mypy = {cmd="mypy --package tests --package api", help="Analiasador estatico de tipos."}
 lin_ruff = {cmd="poetry run ruff check {src_module} tests", help="Linter com o Ruff.", use_vars = true}
-linter = {cmd="task lin_mypy && task lin_ruff", help="Linter"}
-test = {cmd="pytest", help="Rodando os testes"}
+linter = {cmd="task lin_mypy && task lin_ruff", help="Linter."}
+
+test = {cmd="pytest", help="Rodando os testes."}
+test_cov = {cmd="pytest --cov-report html --cov=api", help="Rodando os testes com cobertura."}
+
+server_coverage = {cmd="python -m http.server 8001 -d htmlcov", help="Mostrando o relatorio de cobertura de teste."}
 
 server = {cmd="uvicorn api.app:app --reload", help="Subindo o servidor."}
 

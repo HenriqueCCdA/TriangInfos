@@ -1,13 +1,13 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.config import settings
 from api.schemes import Area, BaseHeight, Edges, Perimetro
 from api.services import Triang3Edges, TriangBaseHeight
 
 app = FastAPI()
 
-
-origins = ["http://localhost:5173", "http://localhost:3000"]
+origins = settings.CORS
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,6 +20,7 @@ app.add_middleware(
 
 @app.get("/")
 def index():
+    print(settings.model_dump())
     return {"msg": "Api is OK!"}
 
 
