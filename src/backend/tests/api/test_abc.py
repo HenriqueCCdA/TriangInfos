@@ -1,6 +1,10 @@
 import pytest
 from fastapi import status
 
+from api.app import app
+
+URI = app.url_path_for("calc_abc")
+
 
 @pytest.mark.integration
 @pytest.mark.parametrize(
@@ -15,7 +19,7 @@ from fastapi import status
     ],
 )
 def test_positive_calc(client, params, area):
-    response = client.post("/area-abc", json=params)
+    response = client.post(URI, json=params)
 
     assert response.status_code == status.HTTP_200_OK
 
@@ -37,7 +41,7 @@ def test_positive_calc(client, params, area):
     ],
 )
 def test_negative_invalid_triangle(client, params):
-    response = client.post("/area-abc", json=params)
+    response = client.post(URI, json=params)
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
 
@@ -65,7 +69,7 @@ def test_negative_invalid_triangle(client, params):
     ],
 )
 def test_negative_edges_must_be_gt_zero(client, params):
-    response = client.post("/area-abc", json=params)
+    response = client.post(URI, json=params)
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
 

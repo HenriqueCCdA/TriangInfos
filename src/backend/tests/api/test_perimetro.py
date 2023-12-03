@@ -1,6 +1,10 @@
 import pytest
 from fastapi import status
 
+from api.app import app
+
+URI = app.url_path_for("perimetro")
+
 
 @pytest.mark.integration
 @pytest.mark.parametrize(
@@ -15,7 +19,7 @@ from fastapi import status
     ],
 )
 def test_positive_perimetro(client, params, perimetro):
-    response = client.post("/perimetro", json=params)
+    response = client.post(URI, json=params)
 
     assert response.status_code == status.HTTP_200_OK
 
@@ -39,7 +43,7 @@ def test_positive_perimetro(client, params, perimetro):
     ],
 )
 def test_negative_edges_must_be_gt_zero(client, params):
-    response = client.post("/perimetro", json=params)
+    response = client.post(URI, json=params)
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
 
