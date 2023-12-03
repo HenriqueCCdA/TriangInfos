@@ -1,5 +1,7 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, Request, status
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from api.config import settings
 from api.schemes import Area, BaseHeight, Edges, Perimetro
@@ -18,9 +20,22 @@ app.add_middleware(
 )
 
 
+@app.exception_handler(RequestValidationError)
+async def validation_exeception_handler(request: Request, exec: RequestValidationError):
+    new_errors = [
+        {
+            "type": e["type"],
+            "msg": e["msg"],
+            "input": e["input"],
+            "loc": e["loc"],
+        }
+        for e in exec.errors()
+    ]
+    return JSONResponse({"detail": new_errors}, status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
 @app.get("/")
 def index():
-    print(settings.model_dump())
     return {"msg": "Api is OK!"}
 
 
@@ -34,7 +49,7 @@ def calc_abc(edges: Edges):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail={
-                "msg": "Não existe triangulo com esse lados.",
+                "msg": "There is no triangle with these sides.",
                 "type": "invalid_triangle",
                 "input": edges.model_dump(),
             },
@@ -60,7 +75,7 @@ def perimetro(edges: Edges):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail={
-                "msg": "Não existe triangulo com esse lados.",
+                "msg": "There is no triangle with these sides.",
                 "type": "invalid_triangle",
                 "input": edges.model_dump(),
             },
