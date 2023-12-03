@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useStore } from '@/stores/core'
-import config from '@/utils/api';
+import config from '@/utils/api'
 
 let b = ref(null)
 let h = ref(null)
@@ -20,7 +20,7 @@ async function calcular() {
     const body = await response.json()
 
     if (!response.ok) {
-      if (Array.isArray(body.detail)){
+      if (Array.isArray(body.detail)) {
         throw new Error(body.detail[0].msg)
       }
       throw new Error(body.detail.msg)

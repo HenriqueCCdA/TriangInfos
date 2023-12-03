@@ -58,7 +58,7 @@ def test_negative_invalid_triangle(params):
 
     error = body["detail"]
 
-    assert error["msg"] == "Não existe triangulo com esse lados."
+    assert error["msg"] == "There is no triangle with these sides."
     assert error["type"] == "invalid_triangle"
     assert error["input"] == params
 
