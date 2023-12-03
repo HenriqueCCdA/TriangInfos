@@ -1,6 +1,10 @@
 import pytest
 from fastapi import status
 
+from api.app import app
+
+URI = app.url_path_for("calc_bh")
+
 
 @pytest.mark.integration
 @pytest.mark.parametrize(
@@ -15,7 +19,7 @@ from fastapi import status
     ],
 )
 def test_positive_area_bh(client, params, area):
-    response = client.post("/area-bh", json=params)
+    response = client.post(URI, json=params)
 
     assert response.status_code == status.HTTP_200_OK
 
@@ -37,7 +41,7 @@ def test_positive_area_bh(client, params, area):
     ],
 )
 def test_negative_invalid_triangle_bh(client, params):
-    response = client.post("/area-bh", json=params)
+    response = client.post(URI, json=params)
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
 
